@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import LoginIcon from "@mui/icons-material/Login";
@@ -39,10 +39,11 @@ function Home() {
             <SensorOccupiedIcon />
           </IconButton>
         </Toolbar>
-        
       </AppBar>
+      <Typography variant="h1" align="center" sx={{ fontWeight: "bold", m: 30 }}>
+        Home Page
+      </Typography>
     </Box>
-    
   );
 }
 
