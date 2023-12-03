@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppBar, IconButton, Paper, Toolbar } from '@mui/material';
 import HomeIcon from "@mui/icons-material/Home";
 import { register } from "../api/userApi";
-// import { register } from "../api/userApi";
+
 
 // import Visibility from "@material-ui/icons/Visibility";
 // import VisibilityOff from "@material-ui/icons/VisibilityOff";

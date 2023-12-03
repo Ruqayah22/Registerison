@@ -5,8 +5,13 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  res.status(200).json({ message: "hello world!" });
-});
-// router.get("/", auth) // this for use middleware 
+router.get("/");
+
+
+// const router = express.Router();
+
+// router.get("/", async (req, res) => {
+//   res.status(200).json({ message: "hello world!" });
+// });
+// // router.get("/", auth) // this for use middleware 
 export default router;

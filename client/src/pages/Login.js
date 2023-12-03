@@ -11,8 +11,11 @@ import Container from "@mui/material/Container";
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar, IconButton, Paper, Toolbar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import { login } from "../api/userApi";
-import Alert from "@mui/material/Alert";
+// import { login } from "../api/userApi";
+// import Alert from "@mui/material/Alert";
+import axios from "axios";
+
+const userURL = "http://localhost:5000";
 
 const initialValue = {
   email: "",
@@ -21,8 +24,8 @@ const initialValue = {
 
 function Login() {
   const [userLogin, setUserLogin] = useState(initialValue);
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  // const [loginSuccess, setLoginSuccess] = useState(false);
+  // const [loginError, setLoginError] = useState(false);
 
   const onValueChange = (e) => {
     setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
@@ -31,28 +34,40 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(`${userURL}/auth/login`, userLogin);
+      
+      console.log("Token:", response.data.token);
+    } catch (error) {
+      console.error("Login failed:", error.message);
+    }
+    // await axios
+    //   .post(`${userURL}/auth/login`, userLogin)
+    //   .then((result) => console.log(result))
+    //   .catch((err) => console.log(err));
+    // await login();
     // console.log(userLogin);
     // await login(userLogin.email, userLogin.password);
     // //  console.log(userLogin);
     // navigate("/ok");
 
-    try {
-      const response = await login(userLogin.email, userLogin.password);
-      if (response.success) {
-        setLoginSuccess(true);
-        setLoginError(false);
-        // console.log("Login successful, navigating to /ok");
-        navigate("/ok");
-      } else {
-        setLoginError(true);
-        // setLoginSuccess(false);
-        // console.error("Login failed: Email or Password Wrong");
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
-      // setLoginError(true);
-      // setLoginSuccess(false);
-    }
+    // try {
+    //   const response = await login(userLogin.email, userLogin.password);
+    //   if (response.success) {
+    //     setLoginSuccess(true);
+    //     setLoginError(false);
+    //     // console.log("Login successful, navigating to /ok");
+    //     navigate("/ok");
+    //   } else {
+    //     setLoginError(true);
+    //     // setLoginSuccess(false);
+    //     // console.error("Login failed: Email or Password Wrong");
+    //   }
+    // } catch (error) {
+    //   console.error("Login failed:", error);
+    //   // setLoginError(true);
+    //   // setLoginSuccess(false);
+    // }
     };
 
   return (

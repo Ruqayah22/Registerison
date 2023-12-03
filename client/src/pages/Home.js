@@ -23,7 +23,7 @@ function Home() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={() => navigate("login")}
+            onClick={() => navigate("/login")}
             sx={{ mr: 2, background: "#494c52" }}
           >
             <LoginIcon />
@@ -33,14 +33,18 @@ function Home() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={() => navigate("signup")}
+            onClick={() => navigate("/register")}
             sx={{ mr: 2, background: "#494c52" }}
           >
             <SensorOccupiedIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Typography variant="h1" align="center" sx={{ fontWeight: "bold", m: 30 }}>
+      <Typography
+        variant="h1"
+        align="center"
+        sx={{ fontWeight: "bold", m: 30 }}
+      >
         Home Page
       </Typography>
     </Box>
