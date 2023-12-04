@@ -11,9 +11,9 @@ import Container from "@mui/material/Container";
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar, IconButton, Paper, Toolbar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-// import { login } from "../api/userApi";
-// import Alert from "@mui/material/Alert";
 import axios from "axios";
+
+import Alert from "@mui/material/Alert";
 
 const userURL = "http://localhost:5000";
 
@@ -24,50 +24,39 @@ const initialValue = {
 
 function Login() {
   const [userLogin, setUserLogin] = useState(initialValue);
-  // const [loginSuccess, setLoginSuccess] = useState(false);
-  // const [loginError, setLoginError] = useState(false);
+  
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
+  const navigate = useNavigate();
+  
   const onValueChange = (e) => {
     setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
   };
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${userURL}/auth/login`, userLogin);
-      
       console.log("Token:", response.data.token);
+      if (response && response.data && response.data.token) {
+        console.log("Login successful");
+        // window.alert("Login successful!");
+        setLoginSuccess(true);
+        setLoginError("");
+        navigate("/ok");
+      } else {
+        console.error("Login failed. No token received in the response.");
+        // window.alert("Login failed. No token received in the response.");
+        setLoginError("Email or Password is wrong");
+        setLoginSuccess(false);
+      }
     } catch (error) {
       console.error("Login failed:", error.message);
+      //  window.alert("Login failed: " + error.message);
+      setLoginError("Login failed: " + error.message);
+      setLoginSuccess(false);
     }
-    // await axios
-    //   .post(`${userURL}/auth/login`, userLogin)
-    //   .then((result) => console.log(result))
-    //   .catch((err) => console.log(err));
-    // await login();
-    // console.log(userLogin);
-    // await login(userLogin.email, userLogin.password);
-    // //  console.log(userLogin);
-    // navigate("/ok");
-
-    // try {
-    //   const response = await login(userLogin.email, userLogin.password);
-    //   if (response.success) {
-    //     setLoginSuccess(true);
-    //     setLoginError(false);
-    //     // console.log("Login successful, navigating to /ok");
-    //     navigate("/ok");
-    //   } else {
-    //     setLoginError(true);
-    //     // setLoginSuccess(false);
-    //     // console.error("Login failed: Email or Password Wrong");
-    //   }
-    // } catch (error) {
-    //   console.error("Login failed:", error);
-    //   // setLoginError(true);
-    //   // setLoginSuccess(false);
-    // }
     };
 
   return (
@@ -158,12 +147,11 @@ function Login() {
             >
               Sign In
             </Button>
-            {/* {loginSuccess && (
+            {loginSuccess && (
               <Alert severity="success">Login Successfully</Alert>
             )}
-            {loginError && (
-              <Alert severity="error">Email or Password Wrong</Alert>
-            )} */}
+            {loginError && <Alert severity="error">{loginError}</Alert>}
+          
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

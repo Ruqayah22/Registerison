@@ -14,9 +14,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import { register } from "../api/userApi";
 
 
-// import Visibility from "@material-ui/icons/Visibility";
-// import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
 const initialValue = {
   name: "",
   email: "",
@@ -28,10 +25,7 @@ const initialValue = {
 function Signup() {
 
   const [userSignup, setUserSignup] = useState(initialValue);
-
-  // const [showPassword, setShowPassword] = useState(false);
-  // const handleShowPassword = () => setShowPassword(!showPassword);
-
+  
   const navigate = useNavigate();
 
   // const handleSubmit = (e) => {
@@ -148,19 +142,7 @@ function Signup() {
                    autoComplete="new-password"
                  />
                </Grid>
-               <Grid item xs={12}>
-                 <TextField
-                   required
-                   fullWidth
-                   id="confirmPassword"
-                   label="confirmPassword"
-                   name="confirmPassword"
-                   type="password"
-                   onChange={(e) => onValueChange(e)}
-                   //  handleShowPassword={handleShowPassword} //"password"
-                   autoComplete="family-name"
-                 />
-               </Grid>
+               
              </Grid>
              <Button
                type="submit"
