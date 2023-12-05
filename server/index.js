@@ -8,6 +8,7 @@ import Connection from "./database/db.js";
 import Routes from "./routes/HomeRoute.js";
 import authRouter from "./routes/AuthRoute.js"
 import okRouter from "./routes/OkRouter.js";
+import auth from "./middleware/auth.js";
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(cors());
 
 app.use("/", Routes);
 app.use("/auth", authRouter);
-app.use("/ok", okRouter);
+app.use("/ok", auth,okRouter);
 
 const PORT = 5000;
 

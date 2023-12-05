@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link, useNavigate } from "react-router-dom";
-import { AppBar, IconButton, Paper, Toolbar } from '@mui/material';
+import { Alert, AppBar, IconButton, Paper, Toolbar } from '@mui/material';
 import HomeIcon from "@mui/icons-material/Home";
 import { register } from "../api/userApi";
 
@@ -18,7 +18,6 @@ const initialValue = {
   name: "",
   email: "",
   password: "",
-  confirmPassword: "",
 };
 
 
@@ -40,7 +39,9 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Alert("Registration Successful");
     await register(userSignup);
+    <Alert severity="success">Registration Successful</Alert>;
     navigate("/login");
   };
   

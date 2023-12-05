@@ -9,11 +9,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link, useNavigate } from "react-router-dom";
-import { AppBar, IconButton, Paper, Toolbar } from "@mui/material";
+import {  Alert, AppBar, IconButton, Paper, Toolbar } from '@mui/material';
+
 import HomeIcon from "@mui/icons-material/Home";
 import axios from "axios";
 
-import Alert from "@mui/material/Alert";
+
 
 const userURL = "http://localhost:5000";
 
@@ -38,13 +39,16 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(`${userURL}/auth/login`, userLogin);
-      console.log("Token:", response.data.token);
+      const token = response.data.token;
+      // console.log("Token:", response.data.token);
       if (response && response.data && response.data.token) {
         console.log("Login successful");
         // window.alert("Login successful!");
         setLoginSuccess(true);
         setLoginError("");
         navigate("/ok");
+        window.location.reload();
+        localStorage.setItem("token", token);
       } else {
         console.error("Login failed. No token received in the response.");
         // window.alert("Login failed. No token received in the response.");
@@ -151,7 +155,7 @@ function Login() {
               <Alert severity="success">Login Successfully</Alert>
             )}
             {loginError && <Alert severity="error">{loginError}</Alert>}
-          
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -159,7 +163,7 @@ function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to={"/signup"} variant="body2">
+                <Link to={"/register"} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
